@@ -1,4 +1,6 @@
-﻿namespace TestPrismCatelJ
+﻿using Prism;
+
+namespace TestPrismCatelJ
 {
     using System.Windows;
 
@@ -51,6 +53,10 @@
             Log.Info("Calling base.OnStartup");
 
             base.OnStartup(e);
+
+            var bootstrapper = new Bootstrapper();
+            bootstrapper.Run();
+
         }
 
         protected override void OnExit(ExitEventArgs e)
