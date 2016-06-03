@@ -5,6 +5,7 @@ using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
+using Syncfusion.Windows.Tools.Controls;
 using TestPrismCatelJ.ViewModels;
 
 namespace TestPrismCatelJ
@@ -48,6 +49,16 @@ namespace TestPrismCatelJ
             catalog.AddModule(typeof(PrismModule2.PrismModule2Module));
 
             return catalog;
+        }
+
+        protected override RegionAdapterMappings ConfigureRegionAdapterMappings()
+        {
+            //            return base.ConfigureRegionAdapterMappings();
+            RegionAdapterMappings mappings = base.ConfigureRegionAdapterMappings();
+
+            mappings?.RegisterMapping(typeof(DockingManager), this.Container.TryResolve<DockingAdapter>());
+
+            return mappings;
         }
 
     }
