@@ -114,12 +114,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ClearChildViewsRegionBehavior.cs" />
     <Compile Include="DockingAdapter.cs" />
+    <Compile Include="Modules\PrismModule1\Views\Module1View.xaml.cs">
+      <DependentUpon>Module1View.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -150,11 +155,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Modules\" />
     <Folder Include="Services\Interfaces\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Modules\PrismModule1\Views\Module1View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -14,6 +14,7 @@
         <syncfusion:DockingManager x:Name="MainRegion"
                                    Margin="0,0,0,10"
                                    prism:RegionManager.RegionName="MainRegion"
+                                   DockStateChanged="MainRegion_OnDockStateChanged"
                                    PersistState="False"
                                    UseDocumentContainer="False"
                                    UseNativeFloatWindow="True">

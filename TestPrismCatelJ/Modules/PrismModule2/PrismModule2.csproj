@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,9 +42,17 @@
       <HintPath>..\..\..\packages\Catel.Extensions.Controls.4.4.0\lib\net45\Catel.Extensions.Controls.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Catel.Fody.Attributes, Version=2.14.0.0, Culture=neutral, PublicKeyToken=1c8163524cbe02e6, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Catel.Fody.2.14.0\lib\portable-net4+sl4+wp7+win8+wpa81+MonoAndroid14+MonoTouch40\Catel.Fody.Attributes.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Catel.MVVM, Version=4.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Catel.MVVM.4.4.0\lib\net45\Catel.MVVM.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Obsolete, Version=4.1.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Obsolete.Fody.4.1.0\lib\dotnet\Obsolete.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
@@ -101,7 +111,9 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\Module2View.xaml">
       <SubType>Designer</SubType>
@@ -109,6 +121,13 @@
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

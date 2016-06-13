@@ -1,4 +1,5 @@
-﻿using Prism;
+﻿using System.Windows.Threading;
+using Prism;
 
 namespace TestPrismCatelJ
 {
@@ -66,6 +67,12 @@ namespace TestPrismCatelJ
             ApiCopManager.WriteResults();
 
             base.OnExit(e);
+        }
+
+        private void ApplicationDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(MainWindow, e.Exception.ToString());
+            e.Handled = true;
         }
     }
 }

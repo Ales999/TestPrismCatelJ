@@ -3,22 +3,29 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Prism.Regions;
 
 namespace TestPrismCatelJ.ViewModels
 {
-    public class ShellViewModel : BindableBase
+    public class ShellViewModel : Catel.MVVM.ViewModelBase
     {
-        private string _title = "Prism Unity Application";
-        public string Title
+
+//        public ShellViewModel() { }
+
+        public ShellViewModel(IRegionManager regionManager)
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
         }
 
-        public ShellViewModel()
+        #region Properties
+        /// <summary>
+        /// Gets the title of the view model.
+        /// </summary>
+        /// <value>The title.</value>
+        public override string Title
         {
-            Title = "Shell View Model";
-
+            get { return "Shell View Model"; }
         }
+        #endregion
+
     }
 }

@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
 using Catel.IoC;
+using Catel.Services;
+using Microsoft.Practices.ServiceLocation;
 //using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -8,8 +12,11 @@ using Prism.Unity;
 using Syncfusion.Windows.Tools.Controls;
 using TestPrismCatelJ.ViewModels;
 
+
+
 namespace TestPrismCatelJ
 {
+
     class Bootstrapper : UnityBootstrapper
     {
         protected override DependencyObject CreateShell()
@@ -33,12 +40,13 @@ namespace TestPrismCatelJ
             base.InitializeShell();
             App.Current.MainWindow = (Window) this.Shell;
             App.Current.MainWindow.Show();
+            
 
         }
 
 
         //protected override DepencyObject 
-//                    base.InitializeShell();
+        //base.InitializeShell();
         //return this.Container.Resolve<Shell>();
 
         protected override IModuleCatalog CreateModuleCatalog()
@@ -61,5 +69,37 @@ namespace TestPrismCatelJ
             return mappings;
         }
 
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+
+            //windows
+            Container.RegisterType<Shell>(new ContainerControlledLifetimeManager());
+
+            //services
+            //Container.RegisterType<IEventMessager, EventMessager>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<IDispatcherService, DispatcherService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ISchedulerService, SchedulerService>(new ContainerControlledLifetimeManager());
+            //Container.RegisterType<IMessageBoxService, MessageBoxService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ShellViewModel>(new ContainerControlledLifetimeManager());
+
+            //custom region stuff to support child container navigation
+            //Container.RegisterType<IRegionNavigationContentLoader, CustomRegionNavigationContentLoader>(new ContainerControlledLifetimeManager());
+            //Container.RegisterType<IRegionNavigationService, CustomRegionNavigationService>(new ContainerControlledLifetimeManager());
+            //Container.RegisterType<IRegionNavigationCapacityChecker, RegionNavigationCapacityChecker>(new ContainerControlledLifetimeManager());
+            //Container.RegisterType<IRegionNavigationCallbackHandler, RegionNavigationCallbackHandler>(new ContainerControlledLifetimeManager());
+
+        }
+
+
+        // Add Dispose support behavior
+        protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
+        {
+            var factory =  base.ConfigureDefaultRegionBehaviors();
+
+            //factory.AddIfMissing(DisposeClosedViewsBehavior.BehaviorKey, typeof(DisposeClosedViewsBehavior));
+
+            return factory;
+        }
     }
 }

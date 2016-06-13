@@ -8,6 +8,7 @@
 
 using System.Linq;
 using System.Windows;
+using Microsoft.Win32;
 using Prism.Regions;
 using Syncfusion.Windows.Tools.Controls;
 
@@ -40,6 +41,18 @@ namespace TestPrismCatelJ
         protected override IRegion CreateRegion()
         {
             return new AllActiveRegion();
+        }
+
+        protected override void AttachBehaviors(IRegion region, DockingManager regionTarget)
+        {
+            // More
+            var regname = region.Name;
+
+            var beh = base.RegionBehaviorFactory;
+            beh.AddIfMissing("ClearChildViewsRegion", typeof(ClearChildViewsRegionBehavior));
+
+            base.AttachBehaviors(region, regionTarget);
+           
         }
     }
     
